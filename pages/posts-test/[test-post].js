@@ -3,17 +3,18 @@ import {useRouter} from "next/router"
 
 const TestPost = () => {
     const [post, setPost] = useState({});
+    // const [reload, setReload] = useState(false);
     const router = useRouter();
     const testPostId = router.query?.['test-post'];
-    console.log(testPostId);
     
     useEffect(()=> {
-        fetch(`https://jsonplaceholder.typicode.com/posts/${testPostId}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            setPost(data)
-        })
+        if(testPostId){
+          fetch(`https://jsonplaceholder.typicode.com/posts/${testPostId}`)
+          .then(res => res.json())
+          .then(data => {
+              setPost(data)
+          })
+        }
     },[testPostId])
 
   return (
